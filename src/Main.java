@@ -53,7 +53,7 @@ public class Main {
                 opp.changeHealth(-player.attackPower);
                 System.out.println("Du träffade " + opp.name + " för " + player.attackPower + " skada");
             } else {
-                opp.heal(rand.nextInt(10), rand.nextInt(30));
+                player.heal(rand.nextInt(10), rand.nextInt(30));
             }
             val = 1 + rand.nextInt(2);
             if (player.health <= 0 || opp.health <= 0) {
