@@ -6,8 +6,8 @@ public class Main {
     static Random rand = new Random();
 
     public static void main(String[] args) {
-        var player = new Fighter(" ", 100, 0);
-        var opp = new Fighter(" ", 200, 100);
+        var player = new Fighter(" ", 400, 0);
+        var opp = new Fighter(" ", 500, 100);
 
         System.out.println("Vad heter din karaktär?");
         player.name = sc.nextLine();
@@ -19,18 +19,17 @@ public class Main {
         int cp = 150; // characterpoints
         while (cp > 0) {
             System.out.println("Du har " + cp + " points");
-            System.out.println("1. Attackpower (" + player.attackpower + ")");
+            System.out.println("1. Attackpower (" + player.attackPower + ")");
             System.out.println("2. Health (" + player.health + ")");
             var choice = sc.nextInt();
             if (choice == 1) {
                 System.out.println("Hur många poäng vill du ge till attackpower?");
                 choice = sc.nextInt();
                 if (choice <= cp) {
-                    player.attackpower += choice;
+                    player.attackPower += choice;
                     cp -= choice;
                 } else {
                     System.out.println("Du har bara " + cp + " Points och kan därför inte spendera " + choice + " Points");
-                    continue;
                 }
             } else if (choice == 2) {
                 System.out.println("Hur många poäng vill du ge till health?");
@@ -40,38 +39,31 @@ public class Main {
                     cp -= choice;
                 } else {
                     System.out.println("Du har bara " + cp + " Points och kan därför inte spendera " + choice + " Points");
-                    continue;
                 }
-            } else {
-                continue;
             }
         }
         sc.nextLine();
-        System.out.println(player.name + " har " + player.health + " Health Points och " + player.attackpower + " attackpower");
+        System.out.println(player.name + " har " + player.health + " Health Points och " + player.attackPower + " attackpower");
         while (player.health > 0 && opp.health > 0) {
             int val = menuChoice(new String[]{"Attack", "Återhämta"});
             if (player.health <= 0 || opp.health <= 0) {
                 break;
             }
             if (val == 1) {
-                opp.changeHealth(-player.attackpower);
-                System.out.println("Du träffade " + opp.name + " för " + player.attackpower + " skada");
-            } else if (val == 2) {
-                player.attackpower += rand.nextInt(10);
-                player.changeHealth(rand.nextInt(30));
-                System.out.println("Du återhämtade dig själv och har nu " + player.attackpower + " attackpower och " + player.health + " Health Points");
+                opp.changeHealth(-player.attackPower);
+                System.out.println("Du träffade " + opp.name + " för " + player.attackPower + " skada");
+            } else {
+                opp.heal(rand.nextInt(10), rand.nextInt(30));
             }
             val = 1 + rand.nextInt(2);
             if (player.health <= 0 || opp.health <= 0) {
                 break;
             }
             if (val == 1) {
-                player.changeHealth(-opp.attackpower);
-                System.out.println(opp.name + " träffade " + player.name + " för " + opp.attackpower + " skada");
+                player.changeHealth(-opp.attackPower);
+                System.out.println(opp.name + " träffade " + player.name + " för " + opp.attackPower + " skada");
             } else {
-                opp.attackpower += rand.nextInt(10);
-                opp.changeHealth(rand.nextInt(30));
-                System.out.println(opp.name + " återhämtade sig själv och har nu " + opp.attackpower + " attackpower och " + opp.health + " Health Points");
+                opp.heal(rand.nextInt(50), rand.nextInt(80));
             }
         }
         if (player.health <= 0) {
@@ -88,11 +80,8 @@ public class Main {
                 System.out.println(i + 1 + ". " + val[i]);
             }
             var choice = sc.nextLine();
-            if (choice.length() > 1) {
-            } else if (Character.isDigit(choice.charAt(0))) {
+            if (Character.isDigit(choice.charAt(0)) && choice.length() == 1) {
                 return Integer.parseInt(choice);
-            } else {
-                continue;
             }
         }
     }
