@@ -16,29 +16,29 @@ public class Main {
         System.out.println("Din motståndares namn är " + opp.name);
         System.out.println("Din karaktärs namn är " + player.name);
         System.out.println("Hur vill du utdela dina karaktärpoäng");
-        int cp = 150; // characterpoints
-        while (cp > 0) {
-            System.out.println("Du har " + cp + " points");
+        int charPoints = 150; // characterpoints
+        while (charPoints > 0) {
+            System.out.println("Du har " + charPoints + " points");
             System.out.println("1. Attackpower (" + player.attackPower + ")");
             System.out.println("2. Health (" + player.health + ")");
             var choice = sc.nextInt();
             if (choice == 1) {
                 System.out.println("Hur många poäng vill du ge till attackpower?");
                 choice = sc.nextInt();
-                if (choice <= cp) {
+                if (choice <= charPoints) {
                     player.attackPower += choice;
-                    cp -= choice;
+                    charPoints -= choice;
                 } else {
-                    System.out.println("Du har bara " + cp + " Points och kan därför inte spendera " + choice + " Points");
+                    System.out.println("Du har bara " + charPoints + " Points och kan därför inte spendera " + choice + " Points");
                 }
             } else if (choice == 2) {
                 System.out.println("Hur många poäng vill du ge till health?");
                 choice = sc.nextInt();
-                if (choice <= cp) {
+                if (choice <= charPoints) {
                     player.health += choice;
-                    cp -= choice;
+                    charPoints -= choice;
                 } else {
-                    System.out.println("Du har bara " + cp + " Points och kan därför inte spendera " + choice + " Points");
+                    System.out.println("Du har bara " + charPoints + " Points och kan därför inte spendera " + choice + " Points");
                 }
             }
         }
